@@ -1,5 +1,5 @@
-function URL() {
-    this.t = location.href;
+function URL(u) {
+    this.t = u;
 }
 
 URL.prototype.toString = function() {
@@ -7,24 +7,22 @@ URL.prototype.toString = function() {
 }
 
 URL.prototype.get = function(arg) {
-    if(this.contains(arg)) {
+    if(this.contains(arg))
         return this.t.split(arg+"=")[1].split("&")[0];
-    }
-    return undefined;
 }
 
 URL.prototype.contains = function(arg) {
     return this.t.search(arg+"=")>-1;
 }
 
-URL.prototype.set = function(key, value) {
-    var tmp = this.t;
-    if(this.contains(key)){
-        tmp = tmp.replace(key+"="+tmp.split(key+"=")[1].split("&")[0], key+"="+value);
+URL.prototype.set = function(k, v) {
+    var i = this.t;
+    if(this.contains(k)){
+        i = i.replace(k+"="+i.split(k+"=")[1].split("&")[0], k+"="+v);
     } else {
-        tmp += tmp.search("\\?")>-1 ?  "&" :  "?";
-        tmp += key + "=" + value;
+        i += i.search("\\?")>-1 ? "&" : "?";
+        i += k + "=" + v;
     }
-    this.t = tmp;
+    this.t = i;
     return this;
 }
